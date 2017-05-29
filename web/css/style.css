@@ -1,0 +1,126 @@
+body {
+  background-color: #ebebeb; }
+
+.main-container {
+  width: 100%;
+  padding: 0px; }
+
+.bg-grey {
+  background-color: #ebebeb; }
+
+.bg-yellow {
+  background-color: #ffce00; }
+
+.bg-blue {
+  background-color: #0072bc; }
+
+.bg-navyblue {
+  background-color: #023564; }
+
+.bg-red {
+  background-color: #ed1c24; }
+
+.text-center {
+  text-align: center; }
+
+.text-right {
+  text-align: right; }
+
+.btn {
+  border-radius: 0px;
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold; }
+
+.button-container {
+  margin-bottom: 40px; }
+
+.header {
+  padding: 10px 20px;
+  color: white;
+  letter-spacing: 0.6px;
+  margin: 0px; }
+  .header h4 {
+    margin-bottom: 5px; }
+
+.navbar-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #ffce00; }
+  .navbar-nav li {
+    text-transform: uppercase;
+    color: black;
+    font-size: 12px;
+    letter-spacing: 0.7px; }
+    .navbar-nav li:hover {
+      background-color: #e9bc00; }
+  .navbar-nav li .active {
+    background-color: #e9bc00; }
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  background-color: #e9bc00; }
+
+.sidebar-container {
+  background-color: #023564;
+  height: 100%; }
+
+.sidebar {
+  position: relative;
+  margin-top: 150px; }
+
+.nav-stacked {
+  background-color: #ebebeb;
+  padding: 0px;
+  max-height: 300px;
+  margin-bottom: 80px;
+  overflow-y: scroll; }
+  .nav-stacked li > a:hover {
+    background-color: #d7d7d7; }
+
+.add-box {
+  position: absolute;
+  bottom: 0;
+  z-index: 2; }
+
+.search-box, .add-box {
+  padding: 20px; }
+  .search-box input, .add-box input {
+    width: 100%;
+    margin-bottom: 0px; }
+  .search-box .btn, .add-box .btn {
+    width: 100%;
+    letter-spacing: 0.7px; }
+
+.nav-tabs {
+  text-transform: uppercase;
+  letter-spacing: 0.7px; }
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  background-color: #003664;
+  color: white; }
+
+.tab-content {
+  background-color: #f8f8f8;
+  margin-bottom: 50px; }
+  .tab-content .tab-pane {
+    padding: 30px; }
+
+.forms {
+  margin-top: 180px;
+  padding: 0px 50px; }
+
+@media (min-width: 979px) {
+  #midCol.affix-top {
+    position: fixed;
+    width: 265px;
+    margin-right: 10px; }
+
+  #midCol.affix {
+    position: static;
+    width: 100%; } }
+@media (min-width: 767px) {
+  .affix, .affix-top {
+    position: fixed; } }
+
+/*# sourceMappingURL=style.css.map */

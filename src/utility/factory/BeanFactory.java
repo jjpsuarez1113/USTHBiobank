@@ -127,6 +127,54 @@ public class BeanFactory {
 		return cb;
 	}
 	
+	public static BloodChemistryBean getBloodChemistryBean(double BUN, double creatine, double uricAcid, double SGOT, double SGPT, double LDH, double EPOLevel, double Na, double K, double bilirubinTotal, double bilirubinDirect, double bilirubinIndirect, double beta2Microglobulin, double hepatitsBTesting, double ESR, double iCa, double totalProtein, double albumin, double globulin, double ANATiter, double hepatitsCRna){
+		BloodChemistryBean bb = new BloodChemistryBean();
+		bb.setBUN(BUN);
+		bb.setCreatine(creatine);
+		bb.setUricAcid(uricAcid);
+		bb.setSGOT(SGOT);
+		bb.setSGPT(SGPT);
+		bb.setLDH(LDH);
+		bb.setEPOLevel(EPOLevel);
+		bb.setNa(Na);
+		bb.setK(K);
+		bb.setBilirubinTotal(bilirubinTotal);
+		bb.setBilirubinDirect(bilirubinDirect);
+		bb.setBilirubinIndirect(bilirubinIndirect);
+		bb.setBeta2Microglobulin(beta2Microglobulin);
+		bb.setHepatitsBTesting(hepatitsBTesting);
+		bb.setESR(ESR);
+		bb.setiCa(iCa);
+		bb.setTotalProtein(totalProtein);
+		bb.setAlbumin(albumin);
+		bb.setGlobulin(globulin);
+		bb.setANATiter(ANATiter);
+		bb.setHepatitsCRna(hepatitsCRna);
+		return bb;
+	}
+	
+	public static OtherLaboratoriesBean getOtherLaboratoriesBean(double creatinineOther, double uricAcid, double reticulocyteCount, double serumIron, double ironBindingCapacity, double serumFerritin, String directAntiglobulin, String indirectAntiglobulin, double SGOT, double SGPT, double LDH, String screenTestHepatitis, String screenTestEBVCytomegalovirusHIV, double erythropeitinLevel, double serumFolicAcid, double serumB12, double TSH){
+		OtherLaboratoriesBean ob = new OtherLaboratoriesBean();
+		ob.setCreatinineOther(creatinineOther);
+		ob.setUricAcid(uricAcid);
+		ob.setReticulocyteCount(reticulocyteCount);
+		ob.setSerumIron(serumIron);
+		ob.setIronBindingCapacity(ironBindingCapacity);
+		ob.setSerumFerritin(serumFerritin);
+		ob.setDirectAntiglobulin(directAntiglobulin);
+		ob.setIndirectAntiglobulin(indirectAntiglobulin);
+		ob.setSGOT(SGOT);
+		ob.setSGPT(SGPT);
+		ob.setLDH(LDH);
+		ob.setScreenTestHepatitis(screenTestHepatitis);
+		ob.setScreenTestEBVCytomegalovirusHIV(screenTestEBVCytomegalovirusHIV);
+		ob.setErythropeitinLevel(erythropeitinLevel);
+		ob.setSerumFolicAcid(serumFolicAcid);
+		ob.setSerumB12(serumB12);
+		ob.setTSH(TSH);
+		return ob;
+	}
+	
 	public static BoneMarrowAspirateBean getBoneMarrowAspirateBean(String datePerformed, String result){
 		BoneMarrowAspirateBean bb = new BoneMarrowAspirateBean();
 		bb.setDatePerformed(datePerformed);

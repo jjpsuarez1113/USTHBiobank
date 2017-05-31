@@ -110,6 +110,20 @@ body {
   margin-top: 180px;
   padding: 0px 50px; }
 
+.visit {
+  padding: 30px 0px; }
+  .visit ul {
+    font-size: 0px;
+    padding: 0px;
+    width: 100%; }
+    .visit ul li {
+      display: inline-block;
+      width: 100%;
+      font-size: 14px;
+      padding: 10px 30px; }
+      .visit ul li:hover {
+        background-color: #ffce00; }
+
 @media (min-width: 979px) {
   #midCol.affix-top {
     position: fixed;

@@ -126,8 +126,8 @@
             <!-- Buttons Container -->
             <div class="row button-container">
               <div class="col-sm-4">
-                <a href="aaphsmds-baseline.html" type="button" class="btn bg-yellow">Baseline</a>
-                <a href="aaphsmds-followup.html" type="button" class="btn bg-yellow">Follow Up</a>
+                <a href="aaphsmds-baseline.html" type="button" class="btn bg-yellow" style="visibility: hidden;">Baseline</a>
+                <a href="aaphsmds-followup.html" type="button" class="btn bg-yellow" style="visibility: hidden;">Follow Up</a>
               </div>
             </div>
             <!-- End of Buttons Container -->

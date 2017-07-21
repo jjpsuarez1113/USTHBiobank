@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import utility.database.SQLOperations;
 
 /**
- * Servlet implementation class GetAAPNHMDSPatientServlet
+ * Servlet implementation class GetLeukemiaPatientServlet
  */
-@WebServlet("/getaapnhmdspatientservlet.html")
-public class GetAAPNHMDSPatientServlet extends HttpServlet {
+@WebServlet("/getleukemiapatientservlet.html")
+public class GetLeukemiaPatientServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private Connection connection;
@@ -31,12 +31,12 @@ public class GetAAPNHMDSPatientServlet extends HttpServlet {
 			System.err.println("connection is NULL.");
 		}
 	}
-	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
@@ -47,9 +47,8 @@ public class GetAAPNHMDSPatientServlet extends HttpServlet {
 		int patientId = Integer.parseInt(request.getParameter("patientId"));
 		try {	
 			if (connection != null) {
-				ResultSet aaphsmdsPatientsList = SQLOperations.getAAPHSMDSBaselinePatients(connection); 			
+				ResultSet leukemiaPatientsList = SQLOperations.getLeukemiaBaselinePatients(connection); 			
 				ResultSet patientInfo = SQLOperations.getPatient(patientId, connection); 			
-				
 				patientInfo.first();
 				int generalDataId = patientInfo.getInt("generalDataId");
 				int clinicalDataId = patientInfo.getInt("clinicalDataId");
@@ -71,22 +70,25 @@ public class GetAAPNHMDSPatientServlet extends HttpServlet {
 				ResultSet laboratoryProfile = SQLOperations.getLaboratoryProfile(laboratoryId, connection);
 				laboratoryProfile.first();
 				int hematologyId = laboratoryProfile.getInt("hematologyId");
-				int otherLaboratoriesId = laboratoryProfile.getInt("otherLaboratoriesId");
+				int bloodChemistryId = laboratoryProfile.getInt("bloodChemistryId");
+				int imagingStudiesId = laboratoryProfile.getInt("imagingStudiesId");
 				int boneMarrowAspirateId = laboratoryProfile.getInt("boneMarrowAspirateId");
 				int flowCytometryId = laboratoryProfile.getInt("flowCytometry");
-				int cytogeneticAAPNHId = laboratoryProfile.getInt("cytogenicaapnhID");
-				int cytogeneticMDSId = laboratoryProfile.getInt("cytogenicmdsID");
+				int cytogeneticAndMolecularAnalysisId = laboratoryProfile.getInt("cytogenicAAPNHId");
 				
 				ResultSet hematology = SQLOperations.getHematology(hematologyId, connection);
-				ResultSet otherLaboratories = SQLOperations.getOtherLaboratoriesAAPNHMDS(otherLaboratoriesId, connection);
+				ResultSet bloodChemistry = SQLOperations.getBloodChemistry(bloodChemistryId, connection);
+				ResultSet imagingStudies = SQLOperations.getImagingStudies(imagingStudiesId, connection);
 				ResultSet boneMarrowAspirate = SQLOperations.getBoneMarrowAspirate(boneMarrowAspirateId, connection);
 				ResultSet flowCytometry = SQLOperations.getFlowCytometry(flowCytometryId, connection);
-				ResultSet cytogeneticAAPNH = SQLOperations.getCytogeneticAAPNH(cytogeneticAAPNHId, connection);
-				ResultSet cytogeneticMDS = SQLOperations.getCytogeneticMDSAAPNH(cytogeneticMDSId, connection);
+				ResultSet cytogeneticAndMolecularAnalysis = SQLOperations.getCytogeneticAAPNH(cytogeneticAndMolecularAnalysisId, connection);
 				
-				ResultSet treatment = SQLOperations.getTreatment(treatmentId, connection);
+				ResultSet therapyAndResponse = SQLOperations.getTreatment(treatmentId, connection);
+				therapyAndResponse.first();
+				System.out.println("Mode of treatment: " + therapyAndResponse.getInt("modeOfTreatmentId"));
 				
-				request.setAttribute("aaphsmdsPatientsList", aaphsmdsPatientsList);
+				
+				request.setAttribute("leukemiaPatientsList", leukemiaPatientsList);
 				request.setAttribute("patientInfo", patientInfo);
 				request.setAttribute("generalData", generalData);
 				request.setAttribute("address", address);
@@ -94,14 +96,14 @@ public class GetAAPNHMDSPatientServlet extends HttpServlet {
 				request.setAttribute("physicalExam", physicalExam);
 				request.setAttribute("laboratoryProfile", laboratoryProfile);
 				request.setAttribute("hematology", hematology);
-				request.setAttribute("otherLaboratories", otherLaboratories);
+				request.setAttribute("bloodChemistry", bloodChemistry);
+				request.setAttribute("imagingStudies", imagingStudies);
 				request.setAttribute("boneMarrowAspirate", boneMarrowAspirate);
 				request.setAttribute("flowCytometry", flowCytometry);
-				request.setAttribute("cytogeneticAAPNH", cytogeneticAAPNH);
-				request.setAttribute("cytogeneticMDS", cytogeneticMDS);
-				request.setAttribute("treatment", treatment);
+				request.setAttribute("cytogeneticAndMolecularAnalysis", cytogeneticAndMolecularAnalysis);
+				request.setAttribute("therapyAndResponse", therapyAndResponse);
 				
-				getServletContext().getRequestDispatcher("/aaphsmds-baseline-patient-info.jsp")
+				getServletContext().getRequestDispatcher("/leukemia-baseline-patient-info.jsp")
 					.forward(request, response);
 			} else {
 				System.out.println("Invalid Connection resource");

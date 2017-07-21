@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+<jsp:useBean id="coagulationPatientsList" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="patientInfo" type="java.sql.ResultSet" scope="request"/>
+
+<%patientInfo.first();%>
 <html>
   <head>
 
@@ -77,20 +84,9 @@
             <!-- Sidenav -->
             <div class="row">
               <ul id="sidebar" class="nav nav-stacked col-sm-12">
-                <li><a href="#">CD001</a></li>
-                <li><a href="#">CD002</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
+                <%while(coagulationPatientsList.next()) {%>
+                	<li><a href="getcoagulationpatientservlet.html?patientId=<%=coagulationPatientsList.getInt("patientId")%>"><%=coagulationPatientsList.getInt("patientId")%></a></li>
+                <%}%>
               </ul>
             </div>
             <!-- End of Sidenav -->
@@ -114,13 +110,14 @@
             <!-- Buttons Container -->
             <div class="row button-container">
               <div class="col-sm-4">
-                <a href="coagulationdisease-baseline.html" type="button" class="btn bg-yellow">Baseline</a>
-                <a href="coagulationdisease-followup.html" type="button" class="btn bg-yellow">Follow Up</a>
+                <a href="getcoagulationpatientservlet.html?patientId=<%=patientInfo.getInt("patientId")%>" type="button" class="btn bg-yellow">Baseline</a>
+                <a href="coagulationdisease-followup.html?patientId=<%=patientInfo.getInt("patientId")%>" type="button" class="btn bg-yellow">Follow Up</a>
               </div>
             </div>
             <!-- End of Buttons Container -->
 
             <!-- Forms -->
+            <form action="AddCoagulationFollowUpServlet" method="post">
             <div class="row">
 
               <!-- Visit -->
@@ -254,6 +251,7 @@
               <!-- End of Follow Up -->
 
             </div>
+            </form>
             <!-- End of Forms -->
             
       </main>

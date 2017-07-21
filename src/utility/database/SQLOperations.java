@@ -697,31 +697,56 @@ public class SQLOperations implements SQLCommands{
 		return rs;
 	}
 	
-	public static ResultSet getPatientAAPNHMDS(int patientId, Connection connection){
+	public static ResultSet getCoagulationBaselinePatients(Connection connection){
 		ResultSet rs = null;
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(GET_PATIENT_BASELINE_AAPHSMDS);
-			pstmt.setInt(1, patientId);
+			PreparedStatement pstmt = connection.prepareStatement(GET_LIST_PATIENTS_BASELINE_COAGULATION);
 			rs = pstmt.executeQuery();
 		} catch(SQLException sqle) {
-			System.out.println("SQLException - getPatientAAPNHMDS: " + sqle.getMessage());
+			System.out.println("SQLException - getCoagulationBaselinePatients: " + sqle.getMessage());
 			return rs;
 		}
 		return rs;
 	}
 	
-	public static ResultSet getGeneralDataAAPNHMDS(int generalDataId, Connection connection){
+	public static ResultSet getLeukemiaBaselinePatients(Connection connection){
 		ResultSet rs = null;
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(GET_GENERAL_DATA_AAPHSMDS);
-			pstmt.setInt(1, generalDataId);
+			PreparedStatement pstmt = connection.prepareStatement(GET_LIST_PATIENTS_BASELINE_LEUKEMIA);
 			rs = pstmt.executeQuery();
 		} catch(SQLException sqle) {
-			System.out.println("SQLException - getGeneralDataAAPNHMDS: " + sqle.getMessage());
+			System.out.println("SQLException - getLeukemiaBaselinePatients: " + sqle.getMessage());
 			return rs;
 		}
 		return rs;
 	}
+	
+	public static ResultSet getPatient(int patientId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_PATIENT_BASELINE);
+			pstmt.setInt(1, patientId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getPatient: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getGeneralData(int generalDataId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_GENERAL_DATA);
+			pstmt.setInt(1, generalDataId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getGeneralData: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
 	
 	public static ResultSet getAddress(int addressId, Connection connection){
 		ResultSet rs = null;
@@ -736,23 +761,23 @@ public class SQLOperations implements SQLCommands{
 		return rs;
 	}
 	
-	public static ResultSet getClinicalDataAAPNHMDS(int clinicalDataId, Connection connection){
+	public static ResultSet getClinicalData(int clinicalDataId, Connection connection){
 		ResultSet rs = null;
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(GET_CLINICAL_DATA_BASELINE_AAPNHMDS);
+			PreparedStatement pstmt = connection.prepareStatement(GET_CLINICAL_DATA_BASELINE);
 			pstmt.setInt(1, clinicalDataId);
 			rs = pstmt.executeQuery();
 		} catch(SQLException sqle) {
-			System.out.println("SQLException - getClinicalDataAAPNHMDS: " + sqle.getMessage());
+			System.out.println("SQLException - getClinicalData: " + sqle.getMessage());
 			return rs;
 		}
 		return rs;
 	}
 	
-	public static ResultSet getPhysicalExamAAPNHMDS(int physicalExamId, Connection connection){
+	public static ResultSet getPhysicalExam(int physicalExamId, Connection connection){
 		ResultSet rs = null;
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(GET_PHYSICAL_EXAM_AAPNHMDS);
+			PreparedStatement pstmt = connection.prepareStatement(GET_PHYSICAL_EXAM);
 			pstmt.setInt(1, physicalExamId);
 			rs = pstmt.executeQuery();
 		} catch(SQLException sqle) {
@@ -761,4 +786,149 @@ public class SQLOperations implements SQLCommands{
 		}
 		return rs;
 	}
+	
+	public static ResultSet getLaboratoryProfile(int laboratoryId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_LABORATORY_PROFILE);
+			pstmt.setInt(1, laboratoryId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getLaboratoryProfile: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getHematology(int hematologyId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_HEMATOLOGY);
+			pstmt.setInt(1, hematologyId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getHematology: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getOtherLaboratoriesAAPNHMDS(int otherLaboratoriesId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_OTHER_LABORATORIES_AAPNHMDS);
+			pstmt.setInt(1, otherLaboratoriesId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getOtherLaboratoriesAAPNHMDS: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getBoneMarrowAspirate(int boneMarrowAspirateId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_BONE_MARROW_ASPIRATE);
+			pstmt.setInt(1, boneMarrowAspirateId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getBoneMarrowAspirate: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getFlowCytometry(int flowCytometryId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_FLOWCYTOMETRY);
+			pstmt.setInt(1, flowCytometryId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getFlowCytometry: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getCytogeneticAAPNH(int cytogeneticAAPNHId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_CYTOGENETIC_AAPNH_AAPNHMDS);
+			pstmt.setInt(1, cytogeneticAAPNHId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getCytogeneticAAPNH: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getCytogeneticMDSAAPNH(int cytogeneticMDSId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_CYTOGENETIC_MDS_AAPNHMDS);
+			pstmt.setInt(1, cytogeneticMDSId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getCytogeneticMDSAAPNH: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getTreatment(int treatmentId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_TREATMENT);
+			pstmt.setInt(1, treatmentId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getTreatment: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getCoagulationTesting(int coagulationTestingId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_COAGULATION_TESTING);
+			pstmt.setInt(1, coagulationTestingId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getCoagulationTesting: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getBloodChemistry(int bloodChemistryId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_BLOOD_CHEMISTRY);
+			pstmt.setInt(1, bloodChemistryId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getBloodChemistry: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+	public static ResultSet getImagingStudies(int imagingStudiesId, Connection connection){
+		ResultSet rs = null;
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(GET_IMAGING_STUDIES);
+			pstmt.setInt(1, imagingStudiesId);
+			rs = pstmt.executeQuery();
+		} catch(SQLException sqle) {
+			System.out.println("SQLException - getImagingStudies: " + sqle.getMessage());
+			return rs;
+		}
+		return rs;
+	}
+	
+
 }

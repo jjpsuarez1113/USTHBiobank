@@ -7,12 +7,28 @@
 <jsp:useBean id="address" type="java.sql.ResultSet" scope="request"/>
 <jsp:useBean id="clinicalData" type="java.sql.ResultSet" scope="request"/>
 <jsp:useBean id="physicalExam" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="laboratoryProfile" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="hematology" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="otherLaboratories" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="boneMarrowAspirate" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="flowCytometry" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="cytogeneticAAPNH" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="cytogeneticMDS" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="treatment" type="java.sql.ResultSet" scope="request"/>
 
 <%patientInfo.first();%>
 <%generalData.first();%>
 <%address.first();%>
 <%clinicalData.first();%>
 <%physicalExam.first();%>
+<%laboratoryProfile.first();%>
+<%hematology.first();%>
+<%otherLaboratories.first();%>
+<%boneMarrowAspirate.first();%>
+<%flowCytometry.first();%>
+<%cytogeneticAAPNH.first();%>
+<%cytogeneticMDS.first();%>
+<%treatment.first();%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,6 +63,8 @@
 		//Classification/Risk
 		$("select[name=severity]").val("<%=clinicalData.getInt("classificationID")%>");
 		
+		//Mode of Treatment
+		$("select[name=modeOfTreament]").val("<%=treatment.getInt("modeOfTreatmentId")%>");
 	});
 	</script>
   </head>
@@ -486,7 +504,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-4">Specify</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" name="alcoholIntakeSpecify"/>
+                          <input type="text" class="form-control" name="alcoholIntakeSpecify" value="<%=clinicalData.getString("alcoholIntakeHistory")%>"/>
                         </div>
                       </div>
 
@@ -590,7 +608,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-4">Date of blood collection</label>
                         <div class="col-lg-8">
-                          <input type="date" class="form-control" name="dateOfBloodCollection"/>
+                          <input type="date" class="form-control" name="dateOfBloodCollection" value="<%=laboratoryProfile.getString("dateOfBloodCollection")%>"/>
                         </div>
                       </div>
 
@@ -610,74 +628,74 @@
                         <div class="form-group">
                           <label class="control-label col-sm-4">Hemoglobin (g/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="hemoglobin"/>
+                            <input type="text" class="form-control" name="hemoglobin" value="<%=hematology.getDouble("hemoglobin")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Hematocrit (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="hematocrit"/>
+                            <input type="text" class="form-control" name="hematocrit" value="<%=hematology.getDouble("hematocrit")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">White blood cells (x10 ^9/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="whiteBloodCells"/>
+                            <input type="text" class="form-control" name="whiteBloodCells" value="<%=hematology.getDouble("whiteBloodCells")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Neutrophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="neutrophils"/>
+                            <input type="text" class="form-control" name="neutrophils" value="<%=hematology.getDouble("neutrophils")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Lymphocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="lymphocytes"/>
+                            <input type="text" class="form-control" name="lymphocytes" value="<%=hematology.getDouble("lymphocytes")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Monocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="monocytes"/>
+                            <input type="text" class="form-control" name="monocytes" value="<%=hematology.getDouble("monocytes")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Eosinophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="eosinophils"/>
+                            <input type="text" class="form-control" name="eosinophils" value="<%=hematology.getDouble("eosinophils")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Basophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="basophils"/>
+                            <input type="text" class="form-control" name="basophils" value="<%=hematology.getDouble("basophils")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Myelocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="myelocytes"/>
+                            <input type="text" class="form-control" name="myelocytes" value="<%=hematology.getDouble("myelocytes")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Metamyelocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="metamyelocytes"/>
+                            <input type="text" class="form-control" name="metamyelocytes" value="<%=hematology.getDouble("metamyelocytes")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Blasts (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="blasts"/>
+                            <input type="text" class="form-control" name="blasts" value="<%=hematology.getDouble("blasts")%>"/>
                             
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Platelet count (x 10^9/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="plateletCount"/>
+                            <input type="text" class="form-control" name="plateletCount" value="<%=hematology.getDouble("plateletCount")%>"/>
                           </div>
                         </div>
                         <!-- End of Fields -->
@@ -698,103 +716,103 @@
                         <div class="form-group">
                           <label class="control-label col-sm-4">Creatinine (mg/dl)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="creatinine"/>
+                            <input type="text" class="form-control" name="creatinine" value="<%=otherLaboratories.getDouble("creatinineOther")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Uric acid mg/dl</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="uricAcid"/>
+                            <input type="text" class="form-control" name="uricAcid" value="<%=otherLaboratories.getDouble("uricAcid")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Reticulocyte Count</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="reticulocyteCount"/>
+                            <input type="text" class="form-control" name="reticulocyteCount" value="<%=otherLaboratories.getDouble("reticulocyteCount")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Serum iron</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="serumIron"/>
+                            <input type="text" class="form-control" name="serumIron" value="<%=otherLaboratories.getDouble("serumIron")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Iron-binding capacity</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="ironBindingCapacity"/>
+                            <input type="text" class="form-control" name="ironBindingCapacity" value="<%=otherLaboratories.getDouble("ironBindingCapacity")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Serum Ferritin</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="serumFerritin"/>
+                            <input type="text" class="form-control" name="serumFerritin" value="<%=otherLaboratories.getDouble("serrumFerritin")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Direct antiglobulin (Coombs) test (+/++/+++/-)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="directAntiglobulin"/>
+                            <input type="text" class="form-control" name="directAntiglobulin" value="<%=otherLaboratories.getString("directAntiglobulin")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Indirect antiglobulin (Coombs) test(+/++/+++/-)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="indirectAntiglobulin"/>
+                            <input type="text" class="form-control" name="indirectAntiglobulin" value="<%=otherLaboratories.getString("indirectAntiglobulin")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">SGOT (U/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="sgot"/>
+                            <input type="text" class="form-control" name="sgot" value="<%=otherLaboratories.getDouble("sgot")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">SGPT (U/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="sgpt"/>
+                            <input type="text" class="form-control" name="sgpt" value="<%=otherLaboratories.getDouble("sgpt")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">LDH (U/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="ldh"/>
+                            <input type="text" class="form-control" name="ldh" value="<%=otherLaboratories.getDouble("ldh")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Screening tests for hepatitis viruses A, B, and C (+/-)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="screeningTestsForHepatitisVirusesABC"/>
+                            <input type="text" class="form-control" name="screeningTestsForHepatitisVirusesABC" value="<%=otherLaboratories.getString("screenTestHepatitis")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Screening tests for EBV, cytomegalovirus (CMV), and HIV (+/-)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="screeningTestsForEBVCMVHIV"/>
+                            <input type="text" class="form-control" name="screeningTestsForEBVCMVHIV" value="<%=otherLaboratories.getString("screenTestEBVCytomegalovirusHIV")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Erythropoeitin level</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="erythropoeitinLevel"/>
+                            <input type="text" class="form-control" name="erythropoeitinLevel" value="<%=otherLaboratories.getDouble("erythropeitinLevel")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Serum folic acid</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="serumFolicAcid"/>
+                            <input type="text" class="form-control" name="serumFolicAcid" value="<%=otherLaboratories.getDouble("serumFolicAcid")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Serum B12</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="serumB12"/>
+                            <input type="text" class="form-control" name="serumB12" value="<%=otherLaboratories.getDouble("serumB12")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">TSH</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="tsh"/>
+                            <input type="text" class="form-control" name="tsh" value="<%=otherLaboratories.getDouble("tsh")%>"/>
                           </div>
                         </div>
                         <!-- End of fields -->
@@ -815,13 +833,13 @@
                       <div class="form-group">
                         <label class="control-label col-sm-4">Date Performed</label>
                         <div class="col-lg-8">
-                          <input type="date" class="form-control" name="boneMarrowAspirateDatePerformed"/>
+                          <input type="date" class="form-control" name="boneMarrowAspirateDatePerformed" value="<%=boneMarrowAspirate.getString("datePerformed")%>"/>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-lg-4">Description</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" name="boneMarrowAspirateDescription"/>
+                          <input type="text" class="form-control" name="boneMarrowAspirateDescription" value="<%=boneMarrowAspirate.getString("result")%>"/>
                         </div>
                       </div>
                       <div class="form-group">
@@ -849,7 +867,7 @@
                       <div class="form-group">
                         <label class="control-label col-lg-4">Result</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" name="flowCytometryResult"/>
+                          <input type="text" class="form-control" name="flowCytometryResult" value="<%=flowCytometry.getString("result")%>"/>
                         </div>
                       </div>
                       <div class="form-group">
@@ -874,7 +892,7 @@
                       <div class="form-group">
                         <label class="control-label col-lg-4">Result</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" name="cytogeneticAndMolecularAnalysisAAPNHResult"/>
+                          <input type="text" class="form-control" name="cytogeneticAndMolecularAnalysisAAPNHResult" value="<%=cytogeneticAAPNH.getString("result")%>"/>
                         </div>
                       </div>
                       <div class="form-group">
@@ -899,7 +917,7 @@
                       <div class="form-group">
                         <label class="control-label col-lg-4">Result</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control" name="cytogeneticAndMolecularAnalysisMDSResult"/>
+                          <input type="text" class="form-control" name="cytogeneticAndMolecularAnalysisMDSResult" value="<%=cytogeneticMDS.getString("result")%>"/>
                         </div>
                       </div>
                       <div class="form-group">
@@ -959,7 +977,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-4">Date Started</label>
                         <div class="col-lg-8">
-                          <input type="date" class="form-control" name="dateStarted"/>
+                          <input type="date" class="form-control" name="dateStarted" value="<%=treatment.getString("dateStarted")%>"/>
                         </div>
                       </div>
 

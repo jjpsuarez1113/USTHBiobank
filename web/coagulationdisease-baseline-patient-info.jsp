@@ -1,3 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+<jsp:useBean id="coagulationPatientsList" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="patientInfo" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="generalData" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="address" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="clinicalData" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="physicalExam" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="laboratoryProfile" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="hematology" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="coagulationTesting" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="bloodChemistry" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="imagingStudies" type="java.sql.ResultSet" scope="request"/>
+<jsp:useBean id="treatment" type="java.sql.ResultSet" scope="request"/>
+
+<%patientInfo.first();%>
+<%generalData.first();%>
+<%address.first();%>
+<%clinicalData.first();%>
+<%physicalExam.first();%>
+<%laboratoryProfile.first();%>
+<%hematology.first();%>
+<%coagulationTesting.first();%>
+<%bloodChemistry.first();%>
+<%imagingStudies.first();%>
+<%treatment.first();%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
 
@@ -13,7 +42,36 @@
     <script src="js/jquery-ui.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="vendor/formvalidation/dist/js/formValidation.min.js"></script>
-  
+  	<script src="js/input-toggle.js"></script>
+	
+  	<script>
+  	$(document).ready(function(){
+		//////SCRIPT FOR RADIOS AND SELECTS
+		
+		//Gender
+		$("input[name=gender][value=<%=generalData.getInt("gender")%>]").prop('checked', true);
+		
+		//Specimen Type
+		$("select[name=specimenType]").val(<%=generalData.getInt("tissueSpecimenId")%>);
+	
+		//Diagnosis
+		$("select[name=diagnosis]").val("<%=clinicalData.getString("diagnosis")%>");
+		
+		//Classification/Risk
+		$("select[name=severity]").val("<%=clinicalData.getInt("classificationID")%>");
+		
+		//Hemathroses
+		$("input[name=presenceOfHemarthroses][value=<%=physicalExam.getInt("hemathroses")%>]").prop('checked', true);
+		
+		//Contractures and Muscle Atrophy
+		$("input[name=presenceOfContracturesAndMuscleAtrophy][value=<%=physicalExam.getInt("contracturesAndMuscleAtrophy")%>]").prop('checked', true);
+		
+		//Classification/Risk
+		$("select[name=treatment]").val(<%=treatment.getInt("modeOfTreatmentId")%>);
+		
+		
+  	});
+  	</script>
   </head>
 
   <body>
@@ -76,20 +134,9 @@
             <!-- Sidenav -->
             <div class="row">
               <ul id="sidebar" class="nav nav-stacked col-sm-12">
-                <li><a href="#">CD001</a></li>
-                <li><a href="#">CD002</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
+                <%while(coagulationPatientsList.next()) {%>
+                	<li><a href="getcoagulationpatientservlet.html?patientId=<%=coagulationPatientsList.getInt("patientId")%>"><%=coagulationPatientsList.getInt("patientId")%></a></li>
+                <%}%>
               </ul>
             </div>
             <!-- End of Sidenav -->
@@ -109,12 +156,12 @@
         <!-- Forms Container -->
         <div class="row">
           <div class="col-sm-10 offset-sm-2 pull-right forms">
-
-            <!-- Buttons Container -->
+			
+			<!-- Buttons Container -->
             <div class="row button-container">
               <div class="col-sm-4">
-                <a href="coagulationdisease-baseline.html" type="button" class="btn bg-yellow">Baseline</a>
-                <a href="coagulationdisease-followup.html" type="button" class="btn bg-yellow">Follow Up</a>
+                <a href="getcoagulationpatientservlet.html?patientId=<%=patientInfo.getInt("patientId")%>" type="button" class="btn bg-yellow">Baseline</a>
+                <a href="coagulationdisease-followup.html?patientId=<%=patientInfo.getInt("patientId")%>" type="button" class="btn bg-yellow">Follow Up</a>
               </div>
             </div>
             <!-- End of Buttons Container -->
@@ -144,7 +191,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-5">Patient ID Number</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" name="patientIDNumber">
+                          <input type="text" class="form-control" name="patientIDNumber" value="<%=patientInfo.getInt("patientId")%>">
                         </div>
                       </div>
 
@@ -152,7 +199,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-5">Last Name</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" name="lastName">
+                          <input type="text" class="form-control" name="lastName" value="<%=generalData.getString("lastName")%>">
                         </div>
                       </div>
 
@@ -160,7 +207,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-5">First Name</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" name="firstName">
+                          <input type="text" class="form-control" name="firstName" value="<%=generalData.getString("firstName")%>">
                         </div>
                       </div>
 
@@ -168,7 +215,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-5">Middle Initial</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" name="middleInitial">
+                          <input type="text" class="form-control" name="middleInitial" value="<%=generalData.getString("middleName")%>">
                         </div>
                       </div>
 
@@ -189,7 +236,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-5">Date of Birth</label>
                         <div class="col-sm-7">
-                          <input type="date" class="form-control" name="dateOfBirth">
+                          <input type="date" class="form-control" name="dateOfBirth" value="<%=generalData.getString("dateOfBirth")%>">
                         </div>
                       </div>
 
@@ -197,7 +244,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-5">Address</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control" name="address">
+                          <input type="text" class="form-control" name="address" value="<%=address.getString("streetAddress")%>, <%=address.getString("city")%>, <%=address.getString("zipCode")%>">
                         </div>
                       </div>
 
@@ -213,7 +260,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-5">Date of Entry</label>
                         <div class="col-sm-7">
-                          <input type="date" class="form-control" name="dateOfEntry">
+                          <input type="date" class="form-control" name="dateOfEntry" value="<%=generalData.getString("dateOfEntry")%>">
                         </div>
                       </div>
 
@@ -251,7 +298,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-3">Date of Visit</label>
                         <div class="col-sm-9">
-                          <input type="date" class="form-control" name="dateOfVisit">
+                          <input type="date" class="form-control" name="dateOfVisit" value="<%=clinicalData.getString("dateOfVisit")%>">
                         </div>
                       </div>
 
@@ -292,7 +339,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-3">Chief Complaint</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="chiefComplaint">
+                          <input type="text" class="form-control" name="chiefComplaint" value="<%=clinicalData.getString("chiefComplaint")%>">
                         </div>
                       </div>
 
@@ -300,7 +347,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-3">Other Symptoms</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="otherSymptoms">
+                          <input type="text" class="form-control" name="otherSymptoms" value="<%=clinicalData.getString("otherSymptoms")%>">
                         </div>
                       </div>
 
@@ -337,7 +384,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-3">Comorbidities</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="comorbidities">
+                          <input type="text" class="form-control" name="comorbidities" value="<%=clinicalData.getString("combordities")%>">
                         </div>
                       </div>
 
@@ -390,7 +437,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-3">Specify:</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="smokingHistorySpecify">
+                          <input type="text" class="form-control" name="smokingHistorySpecify" value="<%=clinicalData.getString("smokingHistory")%>">
                         </div>
                       </div>
 
@@ -409,7 +456,7 @@
                       <div class="form-group">
                         <label class="control-label col-lg-3">Specify</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="alcoholIntakeSpecify"/>
+                          <input type="text" class="form-control" name="alcoholIntakeSpecify" value="<%=clinicalData.getString("alcoholIntakeHistory")%>"/>
                         </div>
                       </div>
 
@@ -428,7 +475,7 @@
                       <div class="form-group">
                         <label class="control-label col-lg-3">Specify</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="chemicalExposureSpecify"/>
+                          <input type="text" class="form-control" name="chemicalExposureSpecify" value="<%=clinicalData.getString("chemicalExposure")%>"/>
                         </div>
                       </div>
                       
@@ -438,13 +485,13 @@
                       <div class="form-group">
                         <label class="control-label col-lg-3">Height</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="height"/>
+                          <input type="text" class="form-control" name="height" value="<%=physicalExam.getDouble("height")%>"/>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-lg-3">Weight</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="weight"/>
+                          <input type="text" class="form-control" name="weight" value="<%=physicalExam.getDouble("weight")%>"/>
                         </div>
                       </div>
                       <div class="form-group">
@@ -473,7 +520,7 @@
                       <div class="form-group">
                         <label class="control-label col-lg-3">Other findings</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="otherFindings"/>
+                          <input type="text" class="form-control" name="otherFindings" value="<%=physicalExam.getString("otherFindings")%>"/>
                         </div>
                       </div>
 
@@ -492,7 +539,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-4">Date of blood collection</label>
                         <div class="col-lg-8">
-                          <input type="date" class="form-control" name="dateOfBloodCollection"/>
+                          <input type="date" class="form-control" name="dateOfBloodCollection" value="<%=laboratoryProfile.getString("dateOfBloodCollection")%>"/>
                         </div>
                       </div>
 
@@ -512,55 +559,55 @@
                         <div class="form-group">
                           <label class="control-label col-sm-4">Hemoglobin (g/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="hemoglobin"/>
+                            <input type="text" class="form-control" name="hemoglobin" value="<%=hematology.getDouble("hemoglobin")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Hematocrit (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="hematocrit"/>
+                            <input type="text" class="form-control" name="hematocrit" value="<%=hematology.getDouble("hematocrit")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">White blood cells (x10 ^9/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="whiteBloodCells"/>
+                            <input type="text" class="form-control" name="whiteBloodCells" value="<%=hematology.getDouble("whiteBloodCells")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Neutrophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="neutrophils"/>
+                            <input type="text" class="form-control" name="neutrophils" value="<%=hematology.getDouble("neutrophils")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Lymphocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="lymphocytes"/>
+                            <input type="text" class="form-control" name="lymphocytes" value="<%=hematology.getDouble("lymphocytes")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Monocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="monocytes"/>
+                            <input type="text" class="form-control" name="monocytes" value="<%=hematology.getDouble("monocytes")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Eosinophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="eosinophils"/>
+                            <input type="text" class="form-control" name="eosinophils" value="<%=hematology.getDouble("eosinophils")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Basophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="basophils"/>
+                            <input type="text" class="form-control" name="basophils" value="<%=hematology.getDouble("basophils")%>"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Platelet count (x 10^9/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name="plateletCount"/>
+                            <input type="text" class="form-control" name="plateletCount" value="<%=hematology.getDouble("plateletCount")%>"/>
                           </div>
                         </div>
                         <!-- End of fields -->
@@ -581,25 +628,25 @@
                           <div class="form-group">
                             <label class="control-label col-sm-4">Factor VIII level</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name="factorVIIILevel"/>
+                              <input type="text" class="form-control" name="factorVIIILevel" value="<%=coagulationTesting.getDouble("factorVIILevel")%>"/>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-sm-4">Factor IX level</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name="factorIXLevel"/>
+                              <input type="text" class="form-control" name="factorIXLevel" value="<%=coagulationTesting.getDouble("factorIXLevel")%>"/>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-sm-4">Inhibitor Assay</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name="inhibitorAssay"/>
+                              <input type="text" class="form-control" name="inhibitorAssay" value="<%=coagulationTesting.getDouble("inhibitorAssay")%>"/>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-sm-4">Bethesda Units</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name="bethesdaUnits"/>
+                              <input type="text" class="form-control" name="bethesdaUnits" value="<%=coagulationTesting.getDouble("bethesdaUnits")%>"/>
                             </div>
                           </div>
                           <!-- End of fields -->
@@ -619,43 +666,43 @@
                             <div class="form-group">
                               <label class="control-label col-sm-4">Creatinine (mg/dl)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name="creatine"/>
+                                <input type="text" class="form-control" name="creatine" value="<%=bloodChemistry.getDouble("creatinine")%>"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">Uric acid</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name="uricAcid"/>
+                                <input type="text" class="form-control" name="uricAcid" value="<%=bloodChemistry.getDouble("uricAcid")%>"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">Na</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name="na"/>
+                                <input type="text" class="form-control" name="na" value="<%=bloodChemistry.getDouble("na")%>"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">K</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name="k"/>
+                                <input type="text" class="form-control" name="k" value="<%=bloodChemistry.getDouble("k")%>"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">SGOT (U/L)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name="sgot"/>
+                                <input type="text" class="form-control" name="sgot" value="<%=bloodChemistry.getDouble("sgot")%>"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">SGPT (U/L)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name="sgpt"/>
+                                <input type="text" class="form-control" name="sgpt" value="<%=bloodChemistry.getDouble("sgpt")%>"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">LDH (U/L)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name="ldh"/>
+                                <input type="text" class="form-control" name="ldh" value="<%=bloodChemistry.getDouble("ldh")%>"/>
                               </div>
                             </div>
                             <!-- End of fields -->
@@ -679,7 +726,7 @@
                         <div class="form-group">
                           <label class="control-label col-sm-4">Result</label>
                           <div class="col-lg-5">
-                            <input type="text" class="form-control" name="imagingStudiesResult"/>
+                            <input type="text" class="form-control" name="imagingStudiesResult" value="<%=imagingStudies.getString("results")%>"/>
                           </div>
                         </div>
                         <!-- End of Imaging Studies -->

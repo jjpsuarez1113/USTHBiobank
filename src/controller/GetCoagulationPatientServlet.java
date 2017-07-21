@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import utility.database.SQLOperations;
 
 /**
- * Servlet implementation class GetAAPNHMDSPatientServlet
+ * Servlet implementation class GetCoagulationPatientServlet
  */
-@WebServlet("/getaapnhmdspatientservlet.html")
-public class GetAAPNHMDSPatientServlet extends HttpServlet {
+@WebServlet("/getcoagulationpatientservlet.html")
+public class GetCoagulationPatientServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	
 	private Connection connection;
 	
@@ -31,11 +32,11 @@ public class GetAAPNHMDSPatientServlet extends HttpServlet {
 			System.err.println("connection is NULL.");
 		}
 	}
-	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doPost(request,response);
 	}
 
@@ -43,11 +44,10 @@ public class GetAAPNHMDSPatientServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		int patientId = Integer.parseInt(request.getParameter("patientId"));
 		try {	
 			if (connection != null) {
-				ResultSet aaphsmdsPatientsList = SQLOperations.getAAPHSMDSBaselinePatients(connection); 			
+				ResultSet coagulationPatientsList = SQLOperations.getCoagulationBaselinePatients(connection); 			
 				ResultSet patientInfo = SQLOperations.getPatient(patientId, connection); 			
 				
 				patientInfo.first();
@@ -71,37 +71,31 @@ public class GetAAPNHMDSPatientServlet extends HttpServlet {
 				ResultSet laboratoryProfile = SQLOperations.getLaboratoryProfile(laboratoryId, connection);
 				laboratoryProfile.first();
 				int hematologyId = laboratoryProfile.getInt("hematologyId");
-				int otherLaboratoriesId = laboratoryProfile.getInt("otherLaboratoriesId");
-				int boneMarrowAspirateId = laboratoryProfile.getInt("boneMarrowAspirateId");
-				int flowCytometryId = laboratoryProfile.getInt("flowCytometry");
-				int cytogeneticAAPNHId = laboratoryProfile.getInt("cytogenicaapnhID");
-				int cytogeneticMDSId = laboratoryProfile.getInt("cytogenicmdsID");
+				int coagulationTestingId = laboratoryProfile.getInt("coagulationTestingId");
+				int bloodChemistryId = laboratoryProfile.getInt("bloodChemistryId");
+				int imagingStudiesId = laboratoryProfile.getInt("imagingStudiesId");
 				
 				ResultSet hematology = SQLOperations.getHematology(hematologyId, connection);
-				ResultSet otherLaboratories = SQLOperations.getOtherLaboratoriesAAPNHMDS(otherLaboratoriesId, connection);
-				ResultSet boneMarrowAspirate = SQLOperations.getBoneMarrowAspirate(boneMarrowAspirateId, connection);
-				ResultSet flowCytometry = SQLOperations.getFlowCytometry(flowCytometryId, connection);
-				ResultSet cytogeneticAAPNH = SQLOperations.getCytogeneticAAPNH(cytogeneticAAPNHId, connection);
-				ResultSet cytogeneticMDS = SQLOperations.getCytogeneticMDSAAPNH(cytogeneticMDSId, connection);
+				ResultSet coagulationTesting = SQLOperations.getCoagulationTesting(coagulationTestingId, connection);
+				ResultSet bloodChemistry = SQLOperations.getBloodChemistry(bloodChemistryId, connection);
+				ResultSet imagingStudies = SQLOperations.getImagingStudies(imagingStudiesId, connection);
 				
 				ResultSet treatment = SQLOperations.getTreatment(treatmentId, connection);
 				
-				request.setAttribute("aaphsmdsPatientsList", aaphsmdsPatientsList);
 				request.setAttribute("patientInfo", patientInfo);
+				request.setAttribute("coagulationPatientsList", coagulationPatientsList);
 				request.setAttribute("generalData", generalData);
 				request.setAttribute("address", address);
 				request.setAttribute("clinicalData", clinicalData);
 				request.setAttribute("physicalExam", physicalExam);
 				request.setAttribute("laboratoryProfile", laboratoryProfile);
 				request.setAttribute("hematology", hematology);
-				request.setAttribute("otherLaboratories", otherLaboratories);
-				request.setAttribute("boneMarrowAspirate", boneMarrowAspirate);
-				request.setAttribute("flowCytometry", flowCytometry);
-				request.setAttribute("cytogeneticAAPNH", cytogeneticAAPNH);
-				request.setAttribute("cytogeneticMDS", cytogeneticMDS);
+				request.setAttribute("coagulationTesting", coagulationTesting);
+				request.setAttribute("bloodChemistry", bloodChemistry);
+				request.setAttribute("imagingStudies", imagingStudies);
 				request.setAttribute("treatment", treatment);
 				
-				getServletContext().getRequestDispatcher("/aaphsmds-baseline-patient-info.jsp")
+				getServletContext().getRequestDispatcher("/coagulationdisease-baseline-patient-info.jsp")
 					.forward(request, response);
 			} else {
 				System.out.println("Invalid Connection resource");

@@ -1,3 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+
+<jsp:useBean id="coagulationPatientsList" type="java.sql.ResultSet" scope="request"/>
+
+<!DOCTYPE html>
 <html>
   <head>
 
@@ -66,9 +72,9 @@
             <!-- Search Box -->
             <div class="row">
               <div class="col-sm-12 search-box">
-                <form>
+                <div>
                   <input type="text" placeholder="Search..">
-                </form>
+                </div>
               </div>
             </div>
             <!-- End of Search Box -->
@@ -76,20 +82,9 @@
             <!-- Sidenav -->
             <div class="row">
               <ul id="sidebar" class="nav nav-stacked col-sm-12">
-                <li><a href="#">CD001</a></li>
-                <li><a href="#">CD002</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
-                <li><a href="#">CD003</a></li>
-                <li><a href="#">CD004</a></li>
-                <li><a href="#">CD005</a></li>
-                <li><a href="#">CD006</a></li>
+                <%while(coagulationPatientsList.next()) {%>
+                	<li><a href="getcoagulationpatientservlet.html?patientId=<%=coagulationPatientsList.getInt("patientId")%>"><%=coagulationPatientsList.getInt("patientId")%></a></li>
+                <%}%>
               </ul>
             </div>
             <!-- End of Sidenav -->
@@ -113,12 +108,12 @@
             <!-- Buttons Container -->
             <div class="row button-container">
               <div class="col-sm-4">
-                <a href="coagulationdisease-baseline.html" type="button" class="btn bg-yellow">Baseline</a>
-                <a href="coagulationdisease-followup.html" type="button" class="btn bg-yellow">Follow Up</a>
+                <a href="coagulationdisease-baseline.html" type="button" class="btn bg-yellow" style="visibility: hidden;">Baseline</a>
+                <a href="coagulationdisease-followup.html" type="button" class="btn bg-yellow" style="visibility: hidden;">Follow Up</a>
               </div>
             </div>
             <!-- End of Buttons Container -->
-
+			<form action="AddCoagulationBaselineServlet" method="post">
             <!-- Forms -->
             <div class="row">
 
@@ -133,12 +128,12 @@
 
                 <!-- General Tab Content -->
                 <div class="tab-content">
-
+				
                   <!-- Form -->
                   <div id="general" class="tab-pane fade in active">
 
                     <!-- Form -->
-                    <form class="form-horizontal"> 
+                    <div class="form-horizontal"> 
 
                       <!-- Patient ID Number -->
                       <div class="form-group">
@@ -177,10 +172,10 @@
                         <label class="control-label col-sm-5">Gender</label>
                         <div class="col-sm-7">
                           <div class="radio">
-                            <label><input type="radio" name="gender">Male</label>
+                            <label><input type="radio" name="gender" value="1">Male</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="gender">Female</label>
+                            <label><input type="radio" name="gender" value="2">Female</label>
                           </div>
                         </div>
                       </div>
@@ -217,7 +212,7 @@
                         </div>
                       </div>
 
-                    </form>
+                    </div>
                     <!-- End of form -->
 
                   </div>
@@ -245,7 +240,7 @@
                   <div id="clinical" class="tab-pane fade in active">
 
                     <!-- Form -->
-                    <form class="form-horizontal">
+                    <div class="form-horizontal">
 
                       <!-- Date of Visit -->
                       <div class="form-group">
@@ -280,10 +275,10 @@
                         <label for="severity" class="control-label col-sm-3">Severity</label>
                         <div class="col-sm-9">
                           <select class="form-control" name="severity">
-                            <option value="low">Low</option>
-                            <option value="moderate">Moderate</option>
-                            <option value="severe">Severe</option>
-                            <option value="not applicable">Not Applicable</option>
+                            <option value="1">Low</option>
+                            <option value="2">Moderate</option>
+                            <option value="3">Severe</option>
+                            <option value="4">Not Applicable</option>
                           </select>
                         </div>
                       </div>
@@ -309,10 +304,10 @@
                         <label class="control-label col-sm-3">Family History of Bleeding Diathesis</label>
                         <div class="col-sm-9">
                           <div class="radio">
-                            <label><input type="radio" name="familyHistoryOfBleedingDiathesis">Yes</label>
+                            <label><input type="radio" name="familyHistoryOfBleedingDiathesis" value="1">Yes</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="familyHistoryOfBleedingDiathesis">No</label>
+                            <label><input type="radio" name="familyHistoryOfBleedingDiathesis" value="0">No</label>
                           </div>
                         </div>
                       </div>
@@ -346,10 +341,10 @@
                         <label class="control-label col-sm-3">Concomitant Medications</label>
                         <div class="col-sm-9">
                           <div class="radio">
-                            <label><input type="radio" name="concomitantMedications">Yes</label>
+                            <label><input type="radio" name="concomitantMedications" value="1">Yes</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="concomitantMedications">No</label>
+                            <label><input type="radio" name="concomitantMedications" value="0">No</label>
                           </div>
                         </div>
                       </div>
@@ -380,10 +375,10 @@
                         <label class="control-label col-sm-3">Smoking History</label>
                         <div class="col-sm-9">
                           <div class="radio">
-                            <label><input type="radio" name="smokingHistory">Yes</label>
+                            <label><input type="radio" name="smokingHistory" value="1">Yes</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="smokingHistory">No</label>
+                            <label><input type="radio" name="smokingHistory" value="0">No</label>
                           </div>
                         </div>
                       </div>
@@ -399,10 +394,10 @@
                         <label class="control-label col-lg-3">Alcohol intake history </label>
                         <div class="col-sm-9">
                           <div class="radio">
-                            <label><input type="radio" name="alcoholIntakeHistory">Yes</label>
+                            <label><input type="radio" name="alcoholIntakeHistory" value="1">Yes</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="alcoholIntakeHistory">No</label>
+                            <label><input type="radio" name="alcoholIntakeHistory" value="0">No</label>
                           </div>
                         </div>
                       </div>
@@ -418,10 +413,10 @@
                         <label class="control-label col-lg-3">Chemical exposure</label>
                         <div class="col-sm-9">
                           <div class="radio">
-                            <label><input type="radio" name="chemicalExposureHistory">Yes</label>
+                            <label><input type="radio" name="chemicalExposureHistory" value="1">Yes</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="chemicalExposureHistory">No</label>
+                            <label><input type="radio" name="chemicalExposureHistory" value="0">No</label>
                           </div>
                         </div>
                       </div>
@@ -451,10 +446,10 @@
                         <label class="control-label col-lg-3">Presence of Hemarthroses</label>
                         <div class="col-sm-9">
                           <div class="radio">
-                            <label><input type="radio" name="chemicalExposureHistory">Yes</label>
+                            <label><input type="radio" name="presenceOfHemarthroses" value="1">Yes</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="chemicalExposureHistory">No</label>
+                            <label><input type="radio" name="presenceOfHemarthroses" value="0">No</label>
                           </div>
                         </div>
                       </div>
@@ -462,10 +457,10 @@
                         <label class="control-label col-lg-3">Presence of contractures and muscle atrophy</label>
                         <div class="col-sm-9">
                           <div class="radio">
-                            <label><input type="radio" name="chemicalExposureHistory">Yes</label>
+                            <label><input type="radio" name="presenceOfContracturesAndMuscleAtrophy" value="1">Yes</label>
                           </div>
                           <div class="radio">
-                            <label><input type="radio" name="chemicalExposureHistory">No</label>
+                            <label><input type="radio" name="presenceOfContracturesAndMuscleAtrophy" value="0">No</label>
                           </div>
                         </div>
                       </div>
@@ -477,7 +472,7 @@
                         </div>
                       </div>
 
-                    </form>
+                    </div>
                     <!-- End of form -->
                   </div>
                   <!-- End of Clinical -->
@@ -486,7 +481,7 @@
                   <div id="laboratory" class="tab-pane fade">
                     
                     <!-- Form -->
-                    <form class="form-horizontal">
+                    <div class="form-horizontal">
 
                       <!-- Date of Bloog Collection -->
                       <div class="form-group">
@@ -512,55 +507,55 @@
                         <div class="form-group">
                           <label class="control-label col-sm-4">Hemoglobin (g/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="hemoglobin"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Hematocrit (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="hematocrit"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">White blood cells (x10 ^9/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="whiteBloodCells"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Neutrophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="neutrophils"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Lymphocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="lymphocytes"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Monocytes (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="monocytes"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Eosinophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="eosinophils"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Basophils (%)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="basophils"/>
                           </div>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-sm-4">Platelet count (x 10^9/L)</label>
                           <div class="col-lg-4">
-                            <input type="text" class="form-control" name=""/>
+                            <input type="text" class="form-control" name="plateletCount"/>
                           </div>
                         </div>
                         <!-- End of fields -->
@@ -581,25 +576,25 @@
                           <div class="form-group">
                             <label class="control-label col-sm-4">Factor VIII level</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name=""/>
+                              <input type="text" class="form-control" name="factorVIIILevel"/>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-sm-4">Factor IX level</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name=""/>
+                              <input type="text" class="form-control" name="factorIXLevel"/>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-sm-4">Inhibitor Assay</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name=""/>
+                              <input type="text" class="form-control" name="inhibitorAssay"/>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-sm-4">Bethesda Units</label>
                             <div class="col-lg-4">
-                              <input type="text" class="form-control" name=""/>
+                              <input type="text" class="form-control" name="bethesdaUnits"/>
                             </div>
                           </div>
                           <!-- End of fields -->
@@ -619,43 +614,43 @@
                             <div class="form-group">
                               <label class="control-label col-sm-4">Creatinine (mg/dl)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name=""/>
+                                <input type="text" class="form-control" name="creatine"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">Uric acid</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name=""/>
+                                <input type="text" class="form-control" name="uricAcid"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">Na</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name=""/>
+                                <input type="text" class="form-control" name="na"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">K</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name=""/>
+                                <input type="text" class="form-control" name="k"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">SGOT (U/L)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name=""/>
+                                <input type="text" class="form-control" name="sgot"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">SGPT (U/L)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name=""/>
+                                <input type="text" class="form-control" name="sgpt"/>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-sm-4">LDH (U/L)</label>
                               <div class="col-sm-4">
-                                <input type="text" class="form-control" name=""/>
+                                <input type="text" class="form-control" name="ldh"/>
                               </div>
                             </div>
                             <!-- End of fields -->
@@ -666,13 +661,13 @@
                           <label class="control-label col-sm-4">Imaging Studies</label>
                           <div class="col-sm-8">
                             <div class="radio">
-                              <label><input type="radio" name="imagingStudies">Yes</label>
+                              <label><input type="radio" name="imagingStudies" value="yes">Yes</label>
                             </div>
                             <div class="radio">
-                              <label><input type="radio" name="imagingStudies">No</label>
+                              <label><input type="radio" name="imagingStudies" value="no">No</label>
                             </div>
                             <div class="radio">
-                              <label><input type="radio" name="imagingStudies">Not Applicable</label>
+                              <label><input type="radio" name="imagingStudies" value="notApplicable">Not Applicable</label>
                             </div>
                           </div>
                         </div>
@@ -684,7 +679,7 @@
                         </div>
                         <!-- End of Imaging Studies -->
 
-                    </form>
+                    </div>
                     <!-- end of form -->
                   </div>
                   <!-- End of Laboratory -->
@@ -693,15 +688,15 @@
                   <div id="therapy" class="tab-pane fade">
 
                     <!-- Form -->
-                    <form class="form-horizontal">
+                    <div class="form-horizontal">
 
                       <!-- Treatment -->
                       <div class="form-group">
                         <label for="severity" class="control-label col-sm-3">Treatment</label>
                         <div class="col-sm-9">
-                          <select class="form-control" name="treament">
-                            <option value="factor concentrates">Factor Concentrates</option>
-                            <option value="blood component">Blood Component</option>
+                          <select class="form-control" name="treatment">
+                            <option value="8">Factor Concentrates</option>
+                            <option value="9">Blood Component</option>
                             <option value="others">Others</option>
                           </select>
                         </div>
@@ -713,7 +708,7 @@
                         </div>
                       </div>
 
-                    </form>
+                    </div>
                     <!-- End of Form -->
                   </div>
                   <!-- End of Therapy -->
@@ -721,12 +716,13 @@
                 </div>
                 <!-- End of CLT Tab Content -->
 
+              <input type="submit" class="btn bg-yellow col-sm-4 pull-right">
               </div>
               <!-- End of CLT -->
             
             </div>
             <!-- End of Forms -->
-
+			</form>
       </main>
       <!-- End of Main Content -->
 

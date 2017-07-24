@@ -4,7 +4,7 @@ import model.*;
 
 public class BeanFactory {
 
-	public static GeneralDataBean getGeneralDataBean(String lastName, String middleName, String firstName, int gender, String dateOfBirth, String dateOfEntry, int addressId, int tissueSpecimenId){
+	public static GeneralDataBean getGeneralDataBean(String lastName, String middleName, String firstName, int gender, String dateOfBirth, String dateOfEntry, int tissueSpecimenId){
 		GeneralDataBean gb = new GeneralDataBean();
 		gb.setLastName(lastName);
 		gb.setMiddleName(middleName);
@@ -12,7 +12,6 @@ public class BeanFactory {
 		gb.setGender(gender);
 		gb.setDateOfBirth(dateOfBirth);
 		gb.setDateOfEntry(dateOfEntry);
-		gb.setAddressId(addressId);
 		gb.setTissueSpecimenId(tissueSpecimenId);
 		return gb;
 	}
@@ -38,7 +37,7 @@ public class BeanFactory {
 		return pb;
 	}
 	
-	public static ClinicalDataBean getClinicalDataBean(String dateOfVisit, String diagnosis, String prognosticRiskScoringId, int riskScoreId, int classificationId, int ISSStagingId, int severityId, String stageOfDisease, String chiefComplaint, String constitutionalSymptoms, String otherSymptoms, String comorbidities, String smokingHistory, String alchoholIntakeHistory, String chemicalExposure, String previousInfection, String previousHematologicDisorder, int physicalExamId, String otherFindings){
+	public static ClinicalDataBean getClinicalDataBean(String dateOfVisit, String diagnosis, int prognosticRiskScoringId, int riskScoreId, int classificationId, int ISSStagingId, int severityId, String stageOfDisease, String chiefComplaint, String constitutionalSymptoms, String otherSymptoms, String comorbidities, String smokingHistory, String alchoholIntakeHistory, String chemicalExposure, String previousInfection, String previousHematologicDisorder, String otherFindings){
 		ClinicalDataBean cb = new ClinicalDataBean();
 		cb.setDateOfVisit(dateOfVisit);
 		cb.setDiagnosis(diagnosis);
@@ -57,7 +56,6 @@ public class BeanFactory {
 		cb.setChemicalExposure(chemicalExposure);
 		cb.setPreviousInfection(previousInfection);
 		cb.setPreviousHematologicDisorder(previousHematologicDisorder);
-		cb.setPhysicalExamId(physicalExamId);
 		cb.setOtherFindings(otherFindings);
 		return cb;
 	}
@@ -273,7 +271,7 @@ public class BeanFactory {
 		return tb;
 	}
 	
-	public OtherTreatmentBean getOtherTreatmentBean(String bisphosphonates, String radiotherapy, boolean dialysis, String otherMedications, String complications){
+	public static OtherTreatmentBean getOtherTreatmentBean(String bisphosphonates, String radiotherapy, boolean dialysis, String otherMedications, String complications){
 		OtherTreatmentBean ob = new OtherTreatmentBean();
 		ob.setBisphosphonates(bisphosphonates);
 		ob.setRadiotherapy(radiotherapy);
@@ -283,7 +281,7 @@ public class BeanFactory {
 		return ob;
 	}
 	
-	public FollowUpBean getFollowUpBean(int patientId, String dateOfVisit, int medicalEventsId, int clinicalDataId, int laboratoryId, int qualityofResponseId, int diseaseStatusId, String specialNotes){
+	public static FollowUpBean getFollowUpBean(int patientId, String dateOfVisit, int medicalEventsId, int clinicalDataId, int laboratoryId, int qualityofResponseId, int diseaseStatusId, String specialNotes){
 		FollowUpBean fb = new FollowUpBean();
 		fb.setPatientId(patientId);
 		fb.setDateOfVisit(dateOfVisit);
@@ -296,7 +294,7 @@ public class BeanFactory {
 		return fb;
 	}
 	
-	public MedicalEventsBean getMedicalEventsBean(String newMedicationForHematologicMalignancy, String newConcomitantMedicationForOtherDisease, String undergoAnyProcedure, String complicationForChemotherapy, String selfAdministerFactorConcentrates){
+	public static MedicalEventsBean getMedicalEventsBean(String newMedicationForHematologicMalignancy, String newConcomitantMedicationForOtherDisease, String undergoAnyProcedure, String complicationForChemotherapy, String selfAdministerFactorConcentrates){
 		MedicalEventsBean mb = new MedicalEventsBean();
 		mb.setNewMedicationForHematologicMalignancy(newMedicationForHematologicMalignancy);
 		mb.setNewConcomitantMedicationForOtherDisease(newConcomitantMedicationForOtherDisease);
@@ -306,7 +304,7 @@ public class BeanFactory {
 		return mb;
 	}
 	
-	public AccountBean getAccountBean(String username, String password, String lastName, String middleName, String firstName, int roleId){
+	public static AccountBean getAccountBean(String username, String password, String lastName, String middleName, String firstName, int roleId){
 		AccountBean ab = new AccountBean();
 		ab.setUsername(username);
 		ab.setPassword(password);
@@ -317,5 +315,15 @@ public class BeanFactory {
 		return ab;
 	}
 	
+	public static ChemotherapyMedicationsBean getChemotherapyMedicationsBean(String medications){
+		ChemotherapyMedicationsBean cmb = new ChemotherapyMedicationsBean();
+		cmb.setMedications(medications);
+		return cmb;
+	}
 	
+	public static RegimenBean getRegimenBean(String regimen){
+		RegimenBean rb = new RegimenBean();
+		rb.setRegimenName(regimen);
+		return rb;
+	}
 }

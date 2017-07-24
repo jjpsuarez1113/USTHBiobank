@@ -3,7 +3,7 @@ package model;
 public class ClinicalDataBean {
 	private String dateOfVisit;
 	private String diagnosis;
-	private String prognosticRiskScoringId;
+	private int prognosticRiskScoringId;
 	private int riskScoreId;
 	private int classificationId;
 	private int ISSStagingId;
@@ -18,7 +18,6 @@ public class ClinicalDataBean {
 	private String chemicalExposure;
 	private String previousInfection;
 	private String previousHematologicDisorder;
-	private int physicalExamId;
 	private String otherFindings;
 	
 	
@@ -34,10 +33,10 @@ public class ClinicalDataBean {
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
 	}
-	public String getPrognosticRiskScoringId() {
+	public int getPrognosticRiskScoringId() {
 		return prognosticRiskScoringId;
 	}
-	public void setPrognosticRiskScoringId(String prognosticRiskScoringId) {
+	public void setPrognosticRiskScoringId(int prognosticRiskScoringId) {
 		this.prognosticRiskScoringId = prognosticRiskScoringId;
 	}
 	public int getRiskScoreId() {
@@ -123,12 +122,6 @@ public class ClinicalDataBean {
 	}
 	public void setPreviousHematologicDisorder(String previousHematologicDisorder) {
 		this.previousHematologicDisorder = previousHematologicDisorder;
-	}
-	public int getPhysicalExamId() {
-		return physicalExamId;
-	}
-	public void setPhysicalExamId(int physicalExamId) {
-		this.physicalExamId = physicalExamId;
 	}
 	public String getOtherFindings() {
 		return otherFindings;
